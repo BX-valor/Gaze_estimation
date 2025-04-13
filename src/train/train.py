@@ -216,10 +216,25 @@ def train(model, train_loader, val_loader, device, use_multi_gpu, num_epochs=Non
     if best_weights is not None:
         save_dir = MODEL['save_path']
         save_dir.mkdir(exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        model_path = save_dir / f"best_model_{timestamp}.pth"
+
+        existing_models = list(save_dir.glob("best_model_*.pth"))
+        numbers = []
+        for model_path in existing_models:
+            try:
+                number = int(model_path.stem.split('_')[-1])  # 提取数字部分
+                numbers.append(number)
+            except ValueError:
+                continue
+        
+        # 生成新序号
+        next_num = max(numbers) + 1 if numbers else 1
+        model_name = f"best_model_{next_num:03d}.pth"
+        model_path = save_dir / model_name
+
+       # 保存模型
         torch.save(best_weights, model_path)
         logger.info(f"\n Best Model at Epoch {best_metrics['epoch']}:")
+        logger.info(f"Saved as: {model_name}")
         logger.info(f"Val Loss: {best_metrics['val_loss']:.4f} | Angular Error: {best_metrics['angular_error']:.2f}°")
             
 
