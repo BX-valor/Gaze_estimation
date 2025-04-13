@@ -30,7 +30,7 @@ def setup_logger():
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     
-    file_handler = logging.FileHandler('training_records/training.log')
+    file_handler = logging.FileHandler('training_records/training.log', encoding='utf-8')
     file_handler.setFormatter(formatter)
     
     stream_handler = logging.StreamHandler()
@@ -219,7 +219,7 @@ def train(model, train_loader, val_loader, device, use_multi_gpu, num_epochs=Non
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         model_path = save_dir / f"best_model_{timestamp}.pth"
         torch.save(best_weights, model_path)
-        logger.info(f"\n🎯 Best Model at Epoch {best_metrics['epoch']}:")
+        logger.info(f"\n Best Model at Epoch {best_metrics['epoch']}:")
         logger.info(f"Val Loss: {best_metrics['val_loss']:.4f} | Angular Error: {best_metrics['angular_error']:.2f}°")
             
 
@@ -260,9 +260,9 @@ def main():
     
     try:
         train(model, train_loader, val_loader, device, use_multi_gpu, num_epochs=args.num_epochs)
-        logger.info("✅ Training completed successfully")
+        logger.info(" Training completed successfully")
     except Exception as e:
-        logger.error(f"❌ Training failed: {str(e)}")
+        logger.error(f" Training failed: {str(e)}")
         raise
    
 
