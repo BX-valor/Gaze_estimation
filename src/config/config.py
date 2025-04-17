@@ -40,7 +40,7 @@ MODEL = {
 # Training configuration
 TRAINING = {
     'batch_size': 2,
-    'num_epochs': 5,
+    'num_epochs': 30,
     'num_workers': 1,
     'learning_rate': 0.001,
     'scheduler_patience': 5,
