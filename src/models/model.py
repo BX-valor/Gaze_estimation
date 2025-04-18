@@ -3,10 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import math
 from pathlib import Path
-import sys
-# Add project root to Python path
-project_root = Path(__file__).parent.parent.parent
-sys.path.append(str(project_root))
 
 from src.config.config import MODEL
 

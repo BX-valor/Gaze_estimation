@@ -1,3 +1,3 @@
-from .inference import main, list_available_models, select_model, preprocess_image
+from .inference import main, get_available_models, preprocess_face_image
 
-__all__ = ['main', 'list_available_models', 'select_model', 'preprocess_image']
+__all__ = ['main', 'get_available_models', 'preprocess_face_image']
